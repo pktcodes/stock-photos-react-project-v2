@@ -1,15 +1,22 @@
 /* eslint-disable react-refresh/only-export-components */
 
-import { createContext, useContext } from 'react';
+import { createContext, useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 
 const AppContext = createContext();
 
 export const AppProvider = ({ children }) => {
-  const greeting = 'hello';
+  const [isDarkTheme, setIsDarkTheme] = useState(false);
+
+  const toggleDarkTheme = () => {
+    const newDarkTheme = !isDarkTheme;
+    setIsDarkTheme(newDarkTheme);
+  };
 
   return (
-    <AppContext.Provider value={{ greeting }}>{children}</AppContext.Provider>
+    <AppContext.Provider value={{ isDarkTheme, toggleDarkTheme }}>
+      {children}
+    </AppContext.Provider>
   );
 };
 
