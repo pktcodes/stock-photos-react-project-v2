@@ -9,8 +9,10 @@ export const AppProvider = ({ children }) => {
   const [isDarkTheme, setIsDarkTheme] = useState(false);
 
   const toggleDarkTheme = () => {
-    const newDarkTheme = !isDarkTheme;
-    setIsDarkTheme(newDarkTheme);
+    const darkTheme = !isDarkTheme;
+    setIsDarkTheme(darkTheme);
+    document.body.classList.toggle('dark-theme', darkTheme);
+    console.log(document.body);
   };
 
   return (
