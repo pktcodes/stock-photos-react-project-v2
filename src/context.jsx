@@ -7,19 +7,25 @@ const getInitialDarkMode = () => {
   const prefersDarkMode = window.matchMedia(
     '(prefers-color-scheme:dark)'
   ).matches;
-  console.log(prefersDarkMode);
-  return prefersDarkMode;
+  const storedDarkMode = localStorage.getItem('darkTheme');
+  if (storedDarkMode === null) {
+    return prefersDarkMode;
+  }
+  if (storedDarkMode !== null) {
+    return storedDarkMode === 'true';
+  }
 };
 
 const AppContext = createContext();
 
 export const AppProvider = ({ children }) => {
-  const [isDarkTheme, setIsDarkTheme] = useState(getInitialDarkMode);
+  const [isDarkTheme, setIsDarkTheme] = useState(getInitialDarkMode());
   const [searchTerm, setSearchTerm] = useState('dog');
 
   const toggleDarkTheme = () => {
     const darkTheme = !isDarkTheme;
     setIsDarkTheme(darkTheme);
+    localStorage.setItem('darkTheme', darkTheme);
   };
 
   useEffect(() => {
